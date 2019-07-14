@@ -1,0 +1,16 @@
+{
+    "name": "aijl2008/zipkin_examples",
+    "require": {
+        "monolog/monolog": "^1.23",
+        "guzzlehttp/guzzle": "^6.3",
+        "openzipkin/zipkin": "^1.2.2",
+        "symfony/http-foundation": "3.4.x-dev"
+    },
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Jerry Ai",
+            "email": "awz@awz.cn"
+        }
+    ]
+}

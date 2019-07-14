@@ -1,0 +1,15 @@
+server:
+  port: 7014
+spring:
+  application:
+    name: java_endpoint_1
+  zipkin:
+    base-url: http://zipkin:9411
+  sleuth:
+    sampler:
+      percentage: 1.0
+logging:
+  level:
+    root: INFO
+    org:
+      springframework.web: DEBUG
