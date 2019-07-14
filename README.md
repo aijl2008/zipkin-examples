@@ -1,3 +1,15 @@
+# 安装zipkin
+
+```
+docker run -d -p 9411:9411 --name zipkin zipkin
+```
+
+# 添加host条目
+
+```
+echo "127.0.0.1 zipkin" >> /etc/hosts
+```
+
 # 测试 Java 的跟踪
 
 ## 启动 Java 环境
@@ -50,28 +62,36 @@ curl http://localhost:8021/
 
 # 测试 php 请求 node 
 ```
-curl http://localhost:8011/?nextUrl=http://localhost:8023
+php -S 0.0.0.0:8014 php_endpoint_1/php_endpoint_1.php
+curl "http://localhost:8014/?nextUrl=http://localhost:8022"
+```
+
+# 测试 php 请求 java 
+```
+php -S 0.0.0.0:8014 php_endpoint_1/php_endpoint_1.php
+curl "http://localhost:8014/?nextUrl=http://localhost:7011"
 ```
 
 # 测试 node 请求 php 
 ```
-curl http://localhost:8021/?nextUrl=http://localhost:8023
+curl "http://localhost:8021/?nextUrl=http://localhost:8012"
+```
+
+# 测试 node 请求 java 
+```
+curl "http://localhost:8021/?nextUrl=http://localhost:7011"
 ```
 
 # 测试 java 请求 php 
 ```
+cd java_endpoint_1 && mvn clean package
+java -jar java_endpoint_1/target/java_endpoint_1-0.0.1-SNAPSHOT
 curl "http://localhost:7014/?nextUrl=http://localhost:8012"
 ```
 
 # 测试 java 请求 node
 ```
+cd java_endpoint_1 && mvn clean package
+java -jar java_endpoint_1/target/java_endpoint_1-0.0.1-SNAPSHOT
 curl "http://localhost:7014/?nextUrl=http://localhost:8022"
-```
-
-# 正确的客户端
-
-```
-php -S 0.0.0.0:8014 php_endpoint_1/php_endpoint_1.php
-curl http://localhost:8014/?nextUrl=http://localhost:8021
-curl http://localhost:8014/?nextUrl=http://localhost:7011
 ```
